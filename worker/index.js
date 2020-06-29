@@ -7,6 +7,13 @@ const HTML = `<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-
 
 async function onGet(request) {
 	let { pathname: path } = request
+	if (
+		self.props.default_root_id !== "root" &&
+		request.searchParams.get('rootId') !== null &&
+		self.props.default_root_id !== request.searchParams.get('rootId')
+	) {
+		return new Response(null, { status: 403 })
+	}
 	const rootId =
 		request.searchParams.get('rootId') || self.props.default_root_id
 	if (path.startsWith('/~_~_gdindex/resources/')) {
@@ -61,6 +68,13 @@ async function onGet(request) {
 }
 async function onPost(request) {
 	let { pathname: path } = request
+	if (
+		self.props.default_root_id !== "root" &&
+		request.searchParams.get('rootId') !== null &&
+		self.props.default_root_id !== request.searchParams.get('rootId')
+	) {
+		return new Response(null, { status: 403 })
+	}
 	const rootId =
 		request.searchParams.get('rootId') || self.props.default_root_id
 	if (path.substr(-1) === '/') {
@@ -101,6 +115,13 @@ async function onPost(request) {
 }
 async function onPut(request) {
 	let { pathname: path } = request
+	if (
+		self.props.default_root_id !== "root" &&
+		request.searchParams.get('rootId') !== null &&
+		self.props.default_root_id !== request.searchParams.get('rootId')
+	) {
+		return new Response(null, { status: 403 })
+	}
 	if (path.substr(-1) === '/') {
 		return new Response(null, {
 			headers: {
